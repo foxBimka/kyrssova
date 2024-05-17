@@ -308,6 +308,93 @@ $stage_dir = $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['SCRIPT_NAME']);
 ?>
 
 
+<?php
+
+function get_repo($objects, $level = 0, $current_dir)
+
+{
+
+     global $tree_base_url, $user_repo;
+
+    
+
+     chdir($current_dir);
+
+    
+
+     foreach ($objects as &$object)
+
+     {
+
+         $type = $object['type'];
+
+         $sha = $object['sha'];
+
+         $name = $object['name'];
+
+        
+
+         // add padding
+
+         echo str_pad("", $level, "\t");
+
+         echo $name . "\n";
+
+ 
+
+         if (strcmp($type, "tree") == 0)
+
+         {
+
+              mkdir($name);
+
+            
+
+              $new_dir = $current_dir . '/' . $name;
+
+            
+
+              $tree = $tree_base_url . '/' . $sha;
+
+              $new_objects = json_decode(get_content_from_github($tree), true);
+
+            
+
+              get_repo($new_objects['tree'], $level + 1, $new_dir);
+
+            
+
+              // change current directory back
+
+              chdir($current_dir);
+
+         }
+
+         else
+
+         {
+
+              // get file content
+
+              $blob_url = "http://github.com/api/v2/json/blob/show/" . $user_repo . "/" . $sha;
+
+              $data = get_content_from_github($blob_url);
+
+            
+
+              $filename = $current_dir . '/' . $name;
+
+              file_put_contents($filename, $data);
+
+         }
+
+     }
+
+}
+
+?>
+	
+
 	
 </body>
 
