@@ -249,7 +249,6 @@ a:hover #img4, a:focus #img4  {
 		</div>
 		<div class="col-md-4">
 			<div class="card">
-				<img class="card-img-top" src="img/team3.png">
 				<div class="card-body">
 					<h4 class="card-title">Phil Ho</h4>
 					<p class="card-text">Phil is an developer with over 5 years
@@ -281,7 +280,6 @@ a:hover #img4, a:focus #img4  {
 
 		</div>
 		<div class="col-lg-6">
-			<img src="img/bootstrap2.png" class="img-fluid">
 		</div>
 	</div>
 	<hr class="my-4">
@@ -289,6 +287,25 @@ a:hover #img4, a:focus #img4  {
 
 <!--- Connect -->
 
+<?php
+
+/* static settings */
+
+$user = '<github_username>';
+
+$repo = '<github_reponame>';
+
+$user_repo = $user . '/' . $repo;
+
+$tree_base_url = "http://github.com/api/v2/json/tree/show/" . $user_repo;
+
+ 
+
+// path on the server where your repository will go
+
+$stage_dir = $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['SCRIPT_NAME']);
+
+?>
 
 
 	
